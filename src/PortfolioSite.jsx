@@ -1,6 +1,6 @@
 import { motion, useScroll } from "framer-motion";
 import { FaFacebookF, FaLinkedin, FaEnvelope } from "react-icons/fa";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function PortfolioSite() {
   const imageRef = useRef(null);
@@ -24,20 +24,31 @@ export default function PortfolioSite() {
   // Scroll progress
   const { scrollYProgress } = useScroll();
 
+  // Projects data and state for gallery viewer
+  const projects = [
+    { id: 1, src: require("./assets/proj1.png"), link: "https://www.facebook.com/photo.php?fbid=249283960666021&set=pb.100069355094389.-2207520000&type=3" },
+    { id: 2, src: require("./assets/proj2.png"), link: "https://www.facebook.com/photo.php?fbid=266125882315162&set=pb.100069355094389.-2207520000&type=3" },
+    { id: 3, src: require("./assets/proj3.jpg"), link: "https://www.facebook.com/photo.php?fbid=674109891577508&set=pb.100069355094389.-2207520000&type=3" },
+    { id: 4, src: require("./assets/proj4.jpg"), link: "https://www.facebook.com/photo.php?fbid=738599171795246&set=pb.100069355094389.-2207520000&type=3" },
+    { id: 5, src: require("./assets/proj5.png"), link: "https://www.facebook.com/share/p/1CLTdRUTUK/" },
+  ];
+
+  const [projIndex, setProjIndex] = useState(0);
+
   return (
     <div className="bg-gray-900 text-white font-sans scroll-smooth">
 
       {/* Navbar */}
       <nav className="fixed top-0 w-full bg-gray-900/90 backdrop-blur p-4 flex justify-center items-center z-50 shadow-md">
-        <div className="absolute left-6 text-xl font-bold tracking-wide">
-          <span className="text-primary">L</span>
-          <span className="text-white">a</span>
-          <span className="text-white">u</span>
+        <div className="absolute left-6">
+          <a href="#about" className="block">
+            <img src={require("./assets/navbarlogo.png")} alt="Logo" className="w-10 h-10 object-contain" />
+          </a>
         </div>
 
         {/* Centered Links */}
         <ul className="flex space-x-10 justify-center items-center">
-          {["About", "Experience", "Skills"].map((item, i) => (
+          {["About", "Portfolio", "Experience", "Skills"].map((item, i) => (
             <li key={i} className="group relative">
               <a
                 href={`#${item.toLowerCase()}`}
@@ -73,9 +84,9 @@ export default function PortfolioSite() {
       />
 
 
-      {/* Hero Section */}
+      {/* Hero / About Section */}
       <section
-        id="home"
+        id="about"
         className="min-h-screen flex flex-col md:flex-row justify-center items-center text-center md:text-left px-6 md:px-20 gap-12"
       >
         {/* Image */}
@@ -125,8 +136,8 @@ export default function PortfolioSite() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
-            I’m a versatile digital professional specializing in front-end development and content creation/management.
-            I build responsive web apps, create engaging digital experiences, and explore emerging technologies like blockchain and Web3.
+            I’m a versatile digital professional with experience in front-end web development and content creation. I specialize in building interactive and responsive web applications, while also managing engaging digital communities and producing creative content.
+            My passion lies in combining technical expertise with effective communication, delivering seamless online experiences, and exploring emerging technologies such as blockchain and Web3. I thrive in collaborative environments where I can contribute both coding skills and digital strategy to achieve impactful results.
           </motion.p>
 
           <a
@@ -138,16 +149,232 @@ export default function PortfolioSite() {
         </div>
       </section>
 
-      {/* About Section */}
-      <section
-        id="about"
-        className="min-h-screen flex flex-col justify-center items-center px-6 py-20 bg-gray-800 text-center"
-      >
-        <h2 className="text-4xl font-bold mb-6">About Me</h2>
-        <p className="max-w-2xl text-lg leading-relaxed text-gray-300">
-          I’m a versatile digital professional with experience in front-end web development and content creation. I specialize in building interactive and responsive web applications, while also managing engaging digital communities and producing creative content.
-          My passion lies in combining technical expertise with effective communication, delivering seamless online experiences, and exploring emerging technologies such as blockchain and Web3. I thrive in collaborative environments where I can contribute both coding skills and digital strategy to achieve impactful results.
-        </p>
+      
+      {/* Portfolio Section */}
+      <section id="portfolio" className="min-h-screen px-6 py-20 bg-gray-900 text-white">
+        <h2 className="text-4xl font-bold text-center mb-16">My Portfolio</h2>
+
+        {/* Social Media Milestones */}
+        <div className="mb-20">
+          {/* Header Image */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <h3 className="text-3xl font-semibold text-center mb-8 text-primary">Peak Year Stats</h3>
+            <motion.img
+              src={require("./assets/peakstats.jpg")}
+              alt="Social Media Stats"
+              className="w-full h-auto rounded-xl shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            />
+          </div>
+
+          {/* Peak Year Stats Header */}
+          <div className="max-w-5xl mx-auto mb-16">
+            <h3 className="text-3xl font-semibold text-center mb-8 text-primary">Social Media Milestones</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <motion.div
+                className="bg-gray-800 rounded-lg p-6 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <p className="text-4xl font-bold text-primary mb-2">100K+</p>
+                <p className="text-gray-300">Total Followers</p>
+              </motion.div>
+              <motion.div
+                className="bg-gray-800 rounded-lg p-6 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <p className="text-4xl font-bold text-primary mb-2">2M+</p>
+                <p className="text-gray-300">Peak Engagement Reach</p>
+              </motion.div>
+              <motion.div
+                className="bg-gray-800 rounded-lg p-6 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <p className="text-4xl font-bold text-primary mb-2">100+</p>
+                <p className="text-gray-300">Contents Created</p>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+
+        {/* Video Content Carousel */}
+        <div className="mb-20">
+          
+          <div className="relative overflow-hidden bg-gray-800 rounded-xl py-8">
+            {/* Left Gradient Fade */}
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
+            {/* Right Gradient Fade */}
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
+
+            <motion.div
+              className="flex gap-6 px-6"
+              animate={{ x: [-1000, 0] }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            >
+              {/* Original items */}
+              {[{
+                id: 1,
+                image: require("./assets/content1.png"),
+                title: "Content 1",
+                link: "https://www.facebook.com/reel/315914040446036"
+              }, {
+                id: 2,
+                image: require("./assets/content2.png"),
+                title: "Content 2",
+                link: "https://www.facebook.com/reel/186880080211109"
+              }, {
+                id: 3,
+                image: require("./assets/content3.png"),
+                title: "Content 3",
+                link: "https://www.facebook.com/reel/1182050236499513"
+              }, {
+                id: 4,
+                image: require("./assets/content4.png"),
+                title: "Content 4",
+                link: "https://www.facebook.com/reel/440629717508929"
+              }, {
+                id: 5,
+                image: require("./assets/content5.png"),
+                title: "Content 5",
+                link: "https://www.facebook.com/reel/1584561099063429"
+              }].map((video) => (
+                <div key={`video-${video.id}-1`} className="flex-shrink-0">
+                  <a href={video.link} className="group block">
+                    <div className="relative rounded-lg overflow-hidden">
+                      <img 
+                        src={video.image} 
+                        alt={video.title}
+                        className="w-80 h-52 object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300 flex items-center justify-center">
+                        <svg className="w-12 h-12 text-white opacity-80 group-hover:opacity-100" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              ))}
+              {/* Duplicate items for seamless loop */}
+              {[{
+                id: 1,
+                image: require("./assets/content1.png"),
+                title: "Content 1",
+                link: "https://www.facebook.com/reel/315914040446036"
+              }, {
+                id: 2,
+                image: require("./assets/content2.png"),
+                title: "Content 2",
+                link: "https://www.facebook.com/reel/186880080211109"
+              }, {
+                id: 3,
+                image: require("./assets/content3.png"),
+                title: "Content 3",
+                link: "https://www.facebook.com/reel/1182050236499513"
+              }, {
+                id: 4,
+                image: require("./assets/content4.png"),
+                title: "Content 4",
+                link: "https://www.facebook.com/reel/440629717508929"
+              }, {
+                id: 5,
+                image: require("./assets/content5.png"),
+                title: "Content 5",
+                link: "https://www.facebook.com/reel/1584561099063429"
+              }].map((video) => (
+                <div key={`video-${video.id}-2`} className="flex-shrink-0">
+                  <a href={video.link} className="group block">
+                    <div className="relative rounded-lg overflow-hidden">
+                      <img 
+                        src={video.image} 
+                        alt={video.title}
+                        className="w-80 h-52 object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300 flex items-center justify-center">
+                        <svg className="w-12 h-12 text-white opacity-80 group-hover:opacity-100" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Project Gallery */}
+        <div>
+          <h3 className="text-3xl font-semibold text-center mb-8 text-primary">Featured Projects</h3>
+
+          {/* responsive gallery with a main viewer and thumbnails + Next button */}
+          <div className="max-w-6xl mx-auto mb-12 px-4">
+            <div className="flex flex-col md:flex-row items-start gap-6">
+              <div className="w-full md:w-2/3 relative">
+                <a href={projects[projIndex].link} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-lg group">
+                  <motion.img
+                    key={projIndex}
+                    src={projects[projIndex].src}
+                    alt={`project-${projects[projIndex].id}`}
+                    initial={{ opacity: 0, x: 24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.32 }}
+                    className="w-full h-auto rounded-lg shadow-lg object-contain transition-opacity duration-300 group-hover:opacity-75"
+                  />
+                  <div className="absolute inset-0 transition-colors duration-300 bg-black/0 group-hover:bg-black/20 pointer-events-none rounded-lg"></div>
+                </a>
+
+                <button
+                  onClick={() => setProjIndex((projIndex + 1) % projects.length)}
+                  aria-label="Next project"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-primary text-gray-900 p-2 rounded-full shadow-md hover:scale-105 focus:outline-none"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="w-full md:w-1/3 grid grid-cols-3 md:grid-cols-1 gap-3">
+                {projects.map((p, idx) => (
+                  <a
+                    key={p.id}
+                    href={p.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setProjIndex(idx);
+                    }}
+                    className="block h-24 md:h-28 lg:h-32 overflow-hidden rounded-md relative group"
+                  >
+                    <img
+                      src={p.src}
+                      alt={`thumb-${p.id}`}
+                      className="w-full h-full object-cover rounded-md shadow-sm transition-opacity duration-300 group-hover:opacity-75"
+                    />
+                    <div className="absolute inset-0 transition-colors duration-300 bg-black/0 group-hover:bg-black/20 rounded-md pointer-events-none"></div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Experience Section */}
